@@ -1,0 +1,34 @@
+/* Custom Style */
+
+.row-header{
+    margin: 0px auto;
+    padding: 0px auto;
+}
+
+.row-header{
+    margin: 0px auto;
+    padding: 50px 0px 50px 0px; /*上右下左*/
+    border-bottom: 1px ridge;
+    min-height: 400px; /*for the content*/
+}
+
+.footer {
+    background-color: #D1C4E9;
+    margin: 0px auto;
+    padding: 20px 0px 20px 0px;
+}
+
+/*在boostrap原有基础上 增加属性*/
+.jumbotron{
+
+    padding: 70px 30px 70px 30px;
+    margin: 0px auto;
+    background-color: #9575cd;
+    color: floralwhite;
+}
+
+.address{
+    font-size: 80%;
+    margin: 0px;
+    color: #0f0f0f;
+}
