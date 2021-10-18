@@ -27,8 +27,21 @@
     color: floralwhite;
 }
 
-.address{
+address{
     font-size: 80%;
     margin: 0px;
     color: #0f0f0f;
+}
+
+body{ 
+    
+    /** 标签， 给body of the page 50px: 这样 top 50px of page body 不会 hidden 在 navigation bar 下面**/
+    padding: 50px 0px 0px 0px;
+    z-index: 0;
+
+}
+
+.navbar-dark {
+    /** 改下 颜色**/
+    background-color: #512DA8;
 }
