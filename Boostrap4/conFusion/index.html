@@ -47,9 +47,14 @@
                 <!-- navlink to show/hide modal of Login -->
                 <span class="navbar-text">   <!-- include a link to the navbar and show it as text -->
 
+                    <!-- Assignment 4: Remove Login data-* attribute  -->
+<!-- 
                     <a data-toggle="modal" data-target="#loginModal">
                         <span class="fa fa-sign-in"></span> Login</a>
-                    </span>
+                    </span> -->
+                    <a id="loginModalButton">
+                        <span class="fa fa-sign-in"></span> Login</a>
+                    </a>
             </div>
             
 
@@ -90,6 +95,8 @@
                         </div>
                     </form>
                 </div>
+         
+
             </div>
         </div>
     </div>
@@ -215,10 +222,12 @@
                         href="#reservatable">Reserve Table</a>  data-toogle 只事件触发 data-html: can be styled using html to format;  data-placement：在下方显示 -->
 
                     
-                    <a data-toggle="modal" data-target="#reservatableModal" 
-                       role="button" class="btn btn-block btn-sm nav-link btn-warning">Reserve Table</a>
+                    <!-- Assignment 4: Reserve data-* attribute  -->
 
+                    <!-- <a data-toggle="modal" data-target="#reservatableModal" 
+                       role="button" class="btn btn-block btn-sm nav-link btn-warning">Reserve Table</a> -->
 
+                    <a role="button" class="btn btn-block btn-sm nav-link btn-warning" id="reserveTableButton">Reserve Table</a>
 
                 </div>
             </div>
@@ -515,6 +524,21 @@
                     $("#carouselButton").children("span").addClass('fa-pause');                    
                 }
             });
+
+        
+        // Login Modal pop-over Button
+        $("#loginModalButton").click(function(){
+            $("#loginModal").modal("show");
+        })
+
+
+        // Reserve Table Modal pop-over Button
+        $("#reserveTableButton").click(function(){
+            $("#reservatableModal").modal("show");
+        })
+
+
+
     </script>
 
 </body>
