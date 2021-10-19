@@ -266,13 +266,32 @@
                         <li data-target="#mycarousel" data-slide-to="2" ></li>
                     </ol>
 
-                    <!-- 即 2-->
                     <a class="carousel-control-prev" href="#mycarousel" role="button" data-slide="prev">  <!-- prev: go to previous slide -->
                         <span class="carousel-control-prev-icon"></span>
                     </a>
                     <a class="carousel-control-next" href="#mycarousel" role="button" data-slide="next">  <!-- prev: go to previous slide -->
                         <span class="carousel-control-next-icon"></span>
                     </a>
+
+
+                    <!-- Carousel Control Buttons Pause/Resume-->
+                    <!-- <div class="btn-group" id="carouselButton"> -->     
+
+                        <!-- <button class="btn btn-danger btn-sm" id="carousel-pause">
+                            <span class="fa fa-pause"></span>
+                        </button>
+                        <button class="btn btn-danger btn-sm" id="carousel-play">
+                            <span class="fa fa-play"></span>
+                        </button>
+                    </div> -->
+
+
+                     <!-- [Modify] only 1 single button 来 停 和 开-->
+                     <button class="btn btn-danger btn-sm" id="carouselButton">
+                        <span id="carousel-button-icon" class="fa fa-pause"></span>
+                    </button>
+
+
                 </div>
             </div>
         </div>
@@ -463,6 +482,40 @@
         })
 
     </script> -->
+
+    <script>
+       
+       // 定义了 3 个functions
+
+        // $(document).ready( function(){
+        //     // couple of functions to control carousel pause/play  //1. 改变change speed
+        //     $('#mycarousel').carousel( {interval:2000}) ; //1. 改变change speed
+        //     $("#mycarousel-pause").click(function(){
+        //         $('#mycarousel').carousel("pause")
+        //     }) ; // 2. activate the cause button , when user click, then 执行内部函数
+
+        //     $("#mycarousel-play").click(function(){
+        //         $('#mycarousel').carousel("cycle")
+        //     }) ; // 3.裆点击 了 play 重新播放
+
+        // })
+
+
+        // 只有一个 按钮的 play/pause
+        $("#carouselButton").click(function(){
+                if ($("#carouselButton").children("span").hasClass('fa-pause')) { // 如果 有 span tag --当前是 pause button
+                    $("#mycarousel").carousel('pause'); // 应该 让 他pause
+                    // 做完pause 后, 改图标
+                    $("#carouselButton").children("span").removeClass('fa-pause');
+                    $("#carouselButton").children("span").addClass('fa-play');
+                }
+                else if ($("#carouselButton").children("span").hasClass('fa-play')){ //play 相反
+                    $("#mycarousel").carousel('cycle');
+                    $("#carouselButton").children("span").removeClass('fa-play');
+                    $("#carouselButton").children("span").addClass('fa-pause');                    
+                }
+            });
+    </script>
 
 </body>
 
