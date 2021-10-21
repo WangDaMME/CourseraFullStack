@@ -3,27 +3,34 @@ import Menu from './MenuComponent';
 import DishDetail from './DishdetailComponent';
 import Header from "./HeaderComponent";
 import Footer from "./FooterComponent";
-import {DISHES} from "../shared/dishes";
-import {COMMENTS} from "../shared/comments";
-import {LEADERS} from "../shared/leaders";
-import {PROMOTIONS} from "../shared/promotions";
 
 import Home from './HomeComponent';
-import {Switch, Route, Redirect} from "react-router-dom"
+import {Switch, Route, Redirect, withRouter} from "react-router-dom"; //withRouter: HOC 包装成 router 路由组件
 import Contact from './ContactComponent';
 import About from './AboutComponent';
+
+import {connect} from "react-redux" ; //connect MainComnponent to store 获取那4个数据
+
+// map react-redux state into props
+const mapStateToProps = state =>{ // 这个state 使 redux store 中得到的
+  return {
+    dishes: state.dishes,
+    comments: state.comments,
+    promotions: state.promotions,
+    leaders: state.leaders
+
+  }
+}
 
 class Main extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-        dishes: DISHES,
-        comments: COMMENTS,
-        promotions: PROMOTIONS,
-        leaders : LEADERS
-      };
+    
   }
+
+  
+
 
   // onDishSelect(dishId) {
   //   this.setState({ selectedDish: dishId});
@@ -34,10 +41,12 @@ class Main extends Component {
     const HomePage = ()=>{
       return (
         //{/*array 返回 index=0*/}
+        //{/*从redux 拿到的数据 转换成 props*/}
+
         <Home 
-              dish={this.state.dishes.filter((dish) => dish.featured)[0]}
-              promotion={this.state.promotions.filter((promo) => promo.featured)[0]}
-              leader={this.state.leaders.filter((leader) => leader.featured)[0]}
+              dish={this.props.dishes.filter((dish) => dish.featured)[0]}
+              promotion={this.props.promotions.filter((promo) => promo.featured)[0]}
+              leader={this.props.leaders.filter((leader) => leader.featured)[0]}
           />
 
       );
@@ -46,8 +55,8 @@ class Main extends Component {
     //路由组建 props 有3大属性 match,location history
     const DishWithId = ({match}) => {
       return(
-        <DishDetail dish={this.state.dishes.filter((dish) => dish.id === parseInt(match.params.dishId,10))[0]} 
-        comments={this.state.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId,10))} />
+        <DishDetail dish={this.props.dishes.filter((dish) => dish.id === parseInt(match.params.dishId,10))[0]} 
+        comments={this.props.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId,10))} />
       );
     };
     
@@ -56,9 +65,9 @@ class Main extends Component {
         <Header/>
 
         <Switch>
-          <Route path="/home" component={HomePage} />
-          <Route exact path="/aboutus" component={ ()=> <About leaders = {this.state.leaders}/> } /> {/* pass the props to a component */}
-          <Route exact path="/menu" component={()=> <Menu dishes={this.state.dishes}/>} /> {/* pass the props to a component */}
+          <Route path="/home" component={HomePage} />         //{/*从redux 拿到的数据 转换成 props*/}
+          <Route exact path="/aboutus" component={ ()=> <About leaders = {this.props.leaders}/> } /> {/* pass the props to a component */}
+          <Route exact path="/menu" component={()=> <Menu dishes={this.props.dishes}/>} /> {/* pass the props to a component */}
           <Route exact path="/menu/:dishId" component={DishWithId} />
           <Route exact path="/contactus" component={Contact} />
           <Redirect to="/home" /> {/* default if not matching*/}
@@ -72,4 +81,5 @@ class Main extends Component {
   }
 }
 
-export default Main;
+// connect to redux store wrapp with 
+export default withRouter(connect(mapStateToProps)(Main));
