@@ -11,6 +11,8 @@ import About from './AboutComponent';
 
 import {connect} from "react-redux" ; //connect MainComnponent to store 获取那4个数据
 
+import { addComment } from '../redux/ActionCreators';
+
 // map react-redux state into props
 const mapStateToProps = state =>{ // 这个state 使 redux store 中得到的
   return {
@@ -21,6 +23,12 @@ const mapStateToProps = state =>{ // 这个state 使 redux store 中得到的
 
   }
 }
+
+const mapDispatchToProps = dispatch => ({
+  
+  addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment))
+
+}); //返回一个对象
 
 class Main extends Component {
 
@@ -55,8 +63,10 @@ class Main extends Component {
     //路由组建 props 有3大属性 match,location history
     const DishWithId = ({match}) => {
       return(
-        <DishDetail dish={this.props.dishes.filter((dish) => dish.id === parseInt(match.params.dishId,10))[0]} 
-        comments={this.props.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId,10))} />
+        <DishDetail dish={this.props.dishes.filter((dish) => dish.id === parseInt(match.params.dishId,10))[0]}
+        comments={this.props.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId,10))}
+        addComment={this.props.addComment}
+      />
       );
     };
     
@@ -82,4 +92,4 @@ class Main extends Component {
 }
 
 // connect to redux store wrapp with 
-export default withRouter(connect(mapStateToProps)(Main));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));
