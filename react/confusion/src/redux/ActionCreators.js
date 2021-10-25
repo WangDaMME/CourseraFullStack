@@ -1,6 +1,6 @@
 import * as ActionTypes from "./ActionTypes";
 import { DISHES } from '../shared/dishes';
-
+import {baseUrl} from "../shared/baseUrl"
 //从 comment modal 表里获得的数据
     
 export const addComment = (dishId, rating, author, comment) => ({
@@ -20,14 +20,17 @@ export const addComment = (dishId, rating, author, comment) => ({
 //return as a func for thunk
 export const fetchDishes = () => (dispatch) =>{
    
-    // 1. 先 setState 成为true 2. 然后添加 dishes
-
-   
     dispatch(dishesLoading(true));
 
-    setTimeout( ()=>{
-        dispatch(addDishes(DISHES))
-    }, 2000)
+    return fetch(baseUrl + 'dishes')
+           .then(response =>response.json())
+           .then(dishes => dispatch(addDishes(dishes)))
+
+
+
+    // 1. 先 setState 成为true 2. 然后添加 dishes
+
+
 }
 
 //action
@@ -46,3 +49,49 @@ export const addDishes = (dishes) =>({
     payload: dishes
 
 })
+
+export const fetchComments = () => (dispatch) =>{
+   
+    dispatch(dishesLoading(true));
+
+    return fetch(baseUrl + 'comments')
+           .then(response =>response.json())
+           .then(comments => dispatch(addComments(comments)))
+}
+
+
+export const commentsFailed = (errmess)=>({
+    type: ActionTypes.COMMENTS_FAILED,
+    payload: errmess
+})
+
+export const addComments = (comments) =>({
+
+    type: ActionTypes.ADD_COMMENTS,
+    payload: comments
+
+})
+
+//promos
+export const fetchPromos = () => (dispatch) => {
+    
+    dispatch(promosLoading());
+
+    return fetch(baseUrl + 'promotions')
+    .then(response => response.json())
+    .then(promos => dispatch(addPromos(promos)));
+}
+
+export const promosLoading = () => ({
+    type: ActionTypes.PROMOS_LOADING
+});
+
+export const promosFailed = (errmess) => ({
+    type: ActionTypes.PROMOS_FAILED,
+    payload: errmess
+});
+
+export const addPromos = (promos) => ({
+    type: ActionTypes.ADD_PROMOS,
+    payload: promos
+});

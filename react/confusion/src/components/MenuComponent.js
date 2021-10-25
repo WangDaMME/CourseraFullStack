@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, CardImg, CardImgOverlay, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import {Link} from "react-router-dom";
 import {Loading} from "./LoadingComponent";
-
+import {baseUrl} from "../shared/baseUrl"
 
 // Menu 是 presentional component 可以 改成 函数式组件
 
@@ -12,7 +12,7 @@ function RenderMenuItem({dish, onClick}) // props 可以写成 形参 形式 pro
         <Card>
             <Link to ={`/menu/${dish.id}`}>
 
-                <CardImg width="100%" src={dish.image} alt={dish.name} />
+                <CardImg width="100%" src={baseUrl+dish.image} alt={dish.name} />
                 <CardImgOverlay>
                     <CardTitle >{dish.name}</CardTitle>
                 </CardImgOverlay>
