@@ -1,18 +1,34 @@
-import * as ActionTypes from "./ActionTypes";
+import * as ActionTypes from './ActionTypes';
 
-
-//dishes (initial 3 states)
-export const Dishes = (state = {isLoading : true, errMess: null, dishes: []}, action) => {
+export const Dishes = (
+    state = {
+        isLoading: true,
+        errMess: null,
+        dishes: [],
+    },
+    action
+) => {
     switch (action.type) {
         case ActionTypes.ADD_DISHES:
-            return  {...state, isLoading : false, errMess:null, dishes:action.payload} // return a new object
+            return {
+                ...state,
+                isLoading: false,
+                errMess: null,
+                dishes: action.payload,
+            };
 
         case ActionTypes.DISHES_LOADING:
-            return  {...state, isLoading : true, errMess: null, dishes:[]} // return a new object
+            return { ...state, isLoading: true, errMess: null, dishes: [] };
+
         case ActionTypes.DISHES_FAILED:
-            return  {...state, isLoading : false, errMess: action.payload, dishes:[]} // return a new object
+            return {
+                ...state,
+                isLoading: false,
+                errMess: action.payload,
+                dishes: [],
+            };
 
         default:
-          return state;
-      }
+            return state;
+    }
 };
